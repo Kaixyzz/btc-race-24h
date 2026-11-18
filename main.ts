@@ -44,7 +44,7 @@
 //     * the close is below its 60-bar moving average, once the position has
 //       been held more than 10 bars (on the dev window this fires about 12
 //       bars after entry, at the top of the bounce);
-//     * the close has retraced 60 bps or more below the highest close since
+//     * the close has retraced 45 bps or more below the highest close since
 //       entry (a trailing stop, the backup if the average never breaks);
 //     * the position is 250 bps under its cost (a hard stop);
 //     * the position has been held 30 bars (a time stop; the bounce is fast).
@@ -75,8 +75,11 @@ const CRASH_DROP_BPS = 120;
 const MA_BARS = 60;
 /** The crash exit waits this many bars after the fill before the average can sell it. */
 const MA_MIN_HOLD_BARS = 10;
-/** The crash ride's trailing stop, in bps below the highest close since entry. */
-const CRASH_TRAIL_BPS = 60;
+/** The crash ride's trailing stop, in bps below the highest close since entry.
+ * Tightened from 60 after the dev grade: the bounce after the opening crash
+ * is fast and short-lived, so giving back 60 bps of the peak costs more than
+ * the extra bars of upside it buys. */
+const CRASH_TRAIL_BPS = 45;
 /** The crash ride's hard stop, in bps below its cost. */
 const CRASH_STOP_BPS = 250;
 /** The crash ride's time stop, in bars held. */
